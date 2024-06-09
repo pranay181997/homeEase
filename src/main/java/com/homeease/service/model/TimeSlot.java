@@ -19,12 +19,12 @@ public class TimeSlot {
 
     private LocalDateTime endTime;
 
-    private String status;
+//    private String status;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "service_provider_id")
-    private ServiceProvider serviceProvider;
+//    @JsonIgnore
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "service_provider_id")
+//    private ServiceProvider serviceProvider;
 
     public Long getId() {
         return id;
@@ -42,13 +42,13 @@ public class TimeSlot {
         this.startTime = startTime;
     }
 
-    public ServiceProvider getServiceProvider() {
-        return serviceProvider;
-    }
-
-    public void setServiceProvider(ServiceProvider serviceProvider) {
-        this.serviceProvider = serviceProvider;
-    }
+//    public ServiceProvider getServiceProvider() {
+//        return serviceProvider;
+//    }
+//
+//    public void setServiceProvider(ServiceProvider serviceProvider) {
+//        this.serviceProvider = serviceProvider;
+//    }
 
     public LocalDateTime getEndTime() {
         return endTime;
@@ -58,11 +58,11 @@ public class TimeSlot {
         this.endTime = endTime;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
+//    public String getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(String status) {
+//        this.status = status;
+//    }
 }

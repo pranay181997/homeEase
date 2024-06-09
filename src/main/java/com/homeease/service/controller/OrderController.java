@@ -15,7 +15,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/checkout/{cartId}")
-    public OrderResponse checkout(@PathVariable Long cartId, @RequestParam String paymentMethod) {
+    public Order checkout(@PathVariable Long cartId, @RequestParam String paymentMethod) {
         return orderService.checkout(cartId, paymentMethod);
     }
 }

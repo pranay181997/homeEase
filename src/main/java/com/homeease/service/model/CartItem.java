@@ -16,18 +16,27 @@ public class CartItem {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "service_id")
+//    @JoinColumn(name = "service_id")
     private Service service;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "service_provider_id")
+//    @JoinColumn(name = "service_provider_id")
     private ServiceProvider serviceProvider;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="time_slot_id")
+//    @JoinColumn(name="time_slot_id")
     private TimeSlot timeSlot;
     private String address;
     private double price;
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

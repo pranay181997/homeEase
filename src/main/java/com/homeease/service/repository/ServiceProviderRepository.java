@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface ServiceProviderRepository extends JpaRepository<ServiceProvider, Long> {
 
-    @Query("SELECT sp FROM ServiceProvider sp JOIN sp.services s WHERE s.id = :serviceId")
+    @Query("SELECT sp FROM ServiceProvider sp WHERE sp.id = :serviceId")
     List<ServiceProvider> findServiceProvidersByServiceId(@Param("serviceId") Long serviceId);
 }

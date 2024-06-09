@@ -16,18 +16,18 @@ public class ServiceProvider {
 
     private String name;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-    private List<TimeSlot> timeSlots;
+//    @JsonManagedReference
+//    @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+//    private List<TimeSlot> timeSlots;
 
-    @JsonManagedReference
-    @ManyToMany
-    @JoinTable(
-            name = "service_provider_service",
-            joinColumns = @JoinColumn(name = "service_provider_id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id")
-    )
-    private List<Service> services;
+//    @JsonManagedReference
+//    @ManyToMany
+//    @JoinTable(
+//            name = "service_provider_service",
+//            joinColumns = @JoinColumn(name = "service_provider_id"),
+//            inverseJoinColumns = @JoinColumn(name = "service_id")
+//    )
+//    private List<Service> services;
 
     public Long getId() {
         return id;
@@ -45,19 +45,19 @@ public class ServiceProvider {
         this.name = name;
     }
 
-    public List<TimeSlot> getTimeSlots() {
-        return timeSlots;
-    }
-
-    public void setTimeSlots(List<TimeSlot> timeSlots) {
-        this.timeSlots = timeSlots;
-    }
-
-    public List<Service> getServices() {
-        return services;
-    }
-
-    public void setServices(List<Service> services) {
-        this.services = services;
-    }
+//    public List<TimeSlot> getTimeSlots() {
+//        return timeSlots;
+//    }
+//
+//    public void setTimeSlots(List<TimeSlot> timeSlots) {
+//        this.timeSlots = timeSlots;
+//    }
+//
+//    public List<Service> getServices() {
+//        return services;
+//    }
+//
+//    public void setServices(List<Service> services) {
+//        this.services = services;
+//    }
 }

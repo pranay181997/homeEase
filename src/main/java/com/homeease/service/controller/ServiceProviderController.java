@@ -22,10 +22,10 @@ public class ServiceProviderController {
         return serviceProviderService.saveServiceProvider(serviceProvider);
     }
 
-    @GetMapping("/{id}/timeSlots")
-    public List<TimeSlot> getAvailableTimeSlots(@PathVariable Long id) {
-        return serviceProviderService.getAvailableTimeSlots(id);
-    }
+//    @GetMapping("/{id}/timeSlots")
+//    public List<TimeSlot> getAvailableTimeSlots(@PathVariable Long id) {
+//        return serviceProviderService.getAvailableTimeSlots(id);
+//    }
 
     @PostMapping("/{id}/timeSlots")
     public TimeSlot addTimeSlot(@PathVariable Long id, @RequestBody TimeSlot timeSlot) {

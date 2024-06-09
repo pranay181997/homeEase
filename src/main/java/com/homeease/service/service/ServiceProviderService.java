@@ -28,15 +28,14 @@ public class ServiceProviderService {
         return serviceProviderRepository.findServiceProvidersByServiceId(serviceId);
     }
 
-    public List<TimeSlot> getAvailableTimeSlots(Long serviceProviderId) {
-        return timeSlotRepository.findByServiceProviderId(serviceProviderId);
-    }
+//    public List<TimeSlot> getAvailableTimeSlots(Long serviceProviderId) {
+//        return timeSlotRepository.findByServiceProviderId(serviceProviderId);
+//    }
 
     public TimeSlot addTimeSlot(Long serviceProviderId, LocalDateTime startTime, LocalDateTime endTime) {
         ServiceProvider serviceProvider = serviceProviderRepository.findById(serviceProviderId).orElseThrow(() -> new RuntimeException("Service provider not found"));
 
         TimeSlot timeSlot = new TimeSlot();
-        timeSlot.setServiceProvider(serviceProvider);
         timeSlot.setStartTime(startTime);
         timeSlot.setEndTime(endTime);
 

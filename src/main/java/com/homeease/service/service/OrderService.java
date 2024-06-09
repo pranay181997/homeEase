@@ -1,12 +1,12 @@
 package com.homeease.service.service;
 
 import com.homeease.service.model.*;
-import com.homeease.service.repository.CartRepository;
-import com.homeease.service.repository.OrderRepository;
-import com.homeease.service.repository.PaymentRepository;
-import com.homeease.service.repository.TimeSlotRepository;
+import com.homeease.service.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -23,15 +23,23 @@ public class OrderService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    public OrderResponse checkout(Long cartId, String paymentMethod) {
+    @Autowired
+    private ServiceServiceProviderTimeSlotMappingRepository serviceServiceProviderTimeSlotMappingRepository;
+
+    @Autowired
+    private ServiceTimeSlotMappingRepository serviceTimeSlotMappingRepository;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
+
+    public Order checkout(Long cartId, String paymentMethod) {
         Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
 
-        cart.getItems().forEach(cartItem -> {
-            TimeSlot timeSlot = cartItem.getTimeSlot();
-            if(timeSlot!=null){
-            timeSlot.setStatus("BOOKED");
-            timeSlotRepository.save(timeSlot);}
-        });
+        for (CartItem cartItem : cart.getItems()) {
+            cartItem.setStatus("BOOKED");
+            cartItemRepository.save(cartItem);
+            updateStatus(cartItem);
+        }
 
         Payment payment = new Payment();
         payment.setPaymentMethod(paymentMethod);
@@ -39,18 +47,23 @@ public class OrderService {
         payment.setStatus("COMPLETED"); // In real application, you will integrate with payment gateway
         paymentRepository.save(payment);
         Order order = new Order();
-        order.setItems(cart.getItems());
         order.setPayment(payment);
         order.setStatus("PLACED");
-
-
-        OrderResponse orderResponse=new OrderResponse();
-        orderResponse.setItems(cart.getItems());
-        orderResponse.setPayment(payment);
-        orderResponse.setStatus("PLACED");
-
-//        cartRepository.delete(cart);
-
-         return orderResponse;
+        order.setCart(cart);
+        return orderRepository.save(order);
     }
+
+    private void updateStatus(CartItem cartItem){
+        ServiceServiceProviderTimeSlotMapping serviceServiceProviderTimeSlotMapping= serviceServiceProviderTimeSlotMappingRepository.findByServiceIdServiceProviderIdTimeSlotId(cartItem.getService().getId(),cartItem.getTimeSlot().getId(),cartItem.getServiceProvider().getId());
+        serviceServiceProviderTimeSlotMapping.setStatus("BOOKED");
+        serviceServiceProviderTimeSlotMappingRepository.save(serviceServiceProviderTimeSlotMapping);
+        List<ServiceServiceProviderTimeSlotMapping> serviceServiceProviderTimeSlotMappingList=serviceServiceProviderTimeSlotMappingRepository.findServiceProviderTimeSlot(cartItem.getService().getId(),cartItem.getTimeSlot().getId(),"AVAILABE");
+        if (serviceServiceProviderTimeSlotMappingList==null || serviceServiceProviderTimeSlotMappingList.isEmpty()){
+            ServiceTimeSlotMapping serviceTimeSlotMapping= serviceTimeSlotMappingRepository.findByServiceTimeSlot(cartItem.getService().getId(),cartItem.getTimeSlot().getId());
+        serviceTimeSlotMapping.setStatus("BOOKED");
+        serviceTimeSlotMappingRepository.save(serviceTimeSlotMapping);
+        }
+    }
+
+
 }

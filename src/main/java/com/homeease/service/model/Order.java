@@ -11,8 +11,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItem> items;
+    @OneToOne
+    @JoinColumn(name = "card_id")
+    private Cart cart;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id")
@@ -20,12 +21,12 @@ public class Order {
 
     private String status;
 
-    public List<CartItem> getItems() {
-        return items;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setItems(List<CartItem> items) {
-        this.items = items;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public Long getOrderId() {

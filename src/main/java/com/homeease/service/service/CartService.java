@@ -38,9 +38,6 @@ public class CartService {
         com.homeease.service.model.Service service = serviceRepository.findById(serviceId).orElseThrow(() -> new RuntimeException("Service not found"));
         ServiceProvider serviceProvider = serviceProviderRepository.findById(serviceProviderId).orElseThrow(() -> new RuntimeException("Service provider not found"));
         TimeSlot timeSlot = timeSlotRepository.findById(timeSlotId).get();
-        if (timeSlot.getStatus()!=null && "BOOKED".equalsIgnoreCase(timeSlot.getStatus())) {
-            throw new RuntimeException("Select other time slot");
-        }
         CartItem cartItem = new CartItem();
         cartItem.setService(service);
         cartItem.setServiceProvider(serviceProvider);
@@ -51,7 +48,6 @@ public class CartService {
             cart.setItems(new ArrayList<>());
         }
         cart.getItems().add(cartItem);
-        timeSlot.setStatus("ADDED_TO_CART");
         timeSlotRepository.save(timeSlot);
         return cartRepository.save(cart);
     }

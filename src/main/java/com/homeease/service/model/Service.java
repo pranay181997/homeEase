@@ -18,10 +18,10 @@ public class Service {
     private String name;
     private String description;
     private double price;
-
-    @JsonIgnore
-    @ManyToMany(mappedBy = "services",cascade = CascadeType.ALL)
-    private List<ServiceProvider> serviceProviders;
+//
+//    @JsonIgnore
+//    @ManyToMany(mappedBy = "services",cascade = CascadeType.ALL)
+//    private List<ServiceProvider> serviceProviders;
 
     public Long getId() {
         return id;
@@ -47,13 +47,13 @@ public class Service {
         this.description = description;
     }
 
-    public List<ServiceProvider> getServiceProviders() {
-        return serviceProviders;
-    }
-
-    public void setServiceProviders(List<ServiceProvider> serviceProviders) {
-        this.serviceProviders = serviceProviders;
-    }
+//    public List<ServiceProvider> getServiceProviders() {
+//        return serviceProviders;
+//    }
+//
+//    public void setServiceProviders(List<ServiceProvider> serviceProviders) {
+//        this.serviceProviders = serviceProviders;
+//    }
 
     public double getPrice() {
         return price;
