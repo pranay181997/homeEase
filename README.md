@@ -1,6 +1,5 @@
 # homeEase
-Clone of urban company
-
+HomeEase,a comprehensive platform connecting customers with service providers for a wide range of home services. The platform will facilitate easy booking, secure transactions, and high-quality service delivery, similar to Urban Company.
 # API Documentation
 
 ## Create User
@@ -133,5 +132,14 @@ curl --location --request POST 'http://localhost:8080/cart/1/add?serviceId=1&ser
 ```bash
 curl --location --request POST 'http://localhost:8080/orders/checkout/1?paymentMethod=credit_card' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
+--header 'Cookie: JSESSIONID=335142808249D3F8077DF41A6862A238; JSESSIONID=335142808249D3F8077DF41A6862A238'
+```
+
+## Fetch cart item for service and user
+
+```bash
+curl --location --request POST 'http://localhost:8080/orders/checkout/1?paymentMethod=credit_card' \
+curl --location 'http://localhost:8080/cart/user/1/service/1' \
+--header 'Content-Type: application/json' \
 --header 'Cookie: JSESSIONID=335142808249D3F8077DF41A6862A238; JSESSIONID=335142808249D3F8077DF41A6862A238'
 ```

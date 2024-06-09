@@ -16,6 +16,8 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CartService {
@@ -54,5 +56,15 @@ public class CartService {
 
     public Cart getCart(Long cartId) {
         return cartRepository.findById(cartId).orElseThrow(() -> new RuntimeException("Cart not found"));
+    }
+
+    public List<CartItem> getCartItem(Long userId, Long serviceId) {
+        Cart cart = cartRepository.findCartByUserId(userId);
+        if (cart == null) {
+            return null;
+        }
+       return cart.getItems().stream().filter(cartItem -> {
+            return cartItem.getService().getId().equals(serviceId);
+        }).collect(Collectors.toList());
     }
 }
